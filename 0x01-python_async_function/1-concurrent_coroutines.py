@@ -4,12 +4,14 @@
 
 import asyncio
 from typing import List
-
-
-async def wait_n(n: int, max_delay: float) -> List[float]:
-    """ function that returns all the delays """
-    tasks = [asyncio.create_task(wait_random(max_delay)) for _ in range(n)]
-    delays = await asyncio.gather(*tasks)
-    return delays
-
 wait_random = __import__('0-basic_async_syntax').wait_random
+
+
+async def wait_n(n: int, max_delay: int) -> List[float]:
+    """ function that returns all the delays """
+    coroutines = []
+    for _ in range(n):
+        coroutines.append(wait_random(max_delay))
+
+    delays = await asyncio.gather(*coroutines)
+    return sorted(delays)
