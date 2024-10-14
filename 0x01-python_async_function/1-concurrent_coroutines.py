@@ -7,7 +7,7 @@ from typing import List
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: float) -> List[float]:
+async def wait_n(n: int, max_delay: int) -> List[float]:
     """ function that returns all the delays """
     coroutines = []
     for _ in range(n):
