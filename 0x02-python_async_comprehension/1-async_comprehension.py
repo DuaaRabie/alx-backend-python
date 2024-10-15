@@ -10,7 +10,7 @@ async_generator: Awaitable[List[float]] \
 
 async def async_comprehension() -> List[float]:
     """ async comprehension function """
-    result : List[float] = []
+    result: List[float] = []
     async for i in async_generator():
         result.append(i)
     return result
