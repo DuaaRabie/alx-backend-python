@@ -3,11 +3,11 @@
 
 
 import asyncio
-from typing import Generator, List
+from typing import Iterator, List
 async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_comprehension() -> Iterable[List[float]]:
+async def async_comprehension() -> Iterator[List[float]]:
     """ async comprehension function """
     result = []
     async for i in async_generator():
