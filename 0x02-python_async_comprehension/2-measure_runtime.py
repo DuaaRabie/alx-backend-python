@@ -4,8 +4,8 @@
 
 import asyncio
 import time
-from typing import Generator
-async_comprehension = __import__('1-async_comprehension').async_comprehension
+from typing import Generator, Awaitable
+async_comprehension: Awaitable[List[float]] = __import__('1-async_comprehension').async_comprehension
 
 
 async def measure_runtime() -> float:
