@@ -3,8 +3,8 @@
 
 
 import asyncio
-from typing import Awaitable, List
-async_generator: Awaitable[List[float]] \
+from typing import Generator, List
+async_generator: Generator[float, None, None] \
         = __import__('0-async_generator').async_generator
 
 
