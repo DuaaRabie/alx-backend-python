@@ -8,7 +8,7 @@ from typing import Generator
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
-async def measure_runtime() -> Generator[None, None, float]:
+async def measure_runtime() -> float:
     """ measure runtime """
     start_time = time.time()
     await asyncio.gather(
