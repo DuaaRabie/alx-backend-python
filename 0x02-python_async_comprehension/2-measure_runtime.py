@@ -5,7 +5,7 @@
 import asyncio
 import time
 from typing import List, Generator, Awaitable
-async_comprehension: Generator[None, None, List[float]]\
+async_comprehension: Awaitable[List[float]]\
          = __import__('1-async_comprehension').async_comprehension
 
 
