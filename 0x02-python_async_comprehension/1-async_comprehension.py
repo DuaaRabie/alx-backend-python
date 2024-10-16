@@ -10,7 +10,4 @@ async_generator: Generator[float, None, None] \
 
 async def async_comprehension() -> List[float]:
     """ async comprehension function """
-    result: List[float] = []
-    async for i in async_generator():
-        result.append(i)
-    return result
+    return [gen async for gen in async_generator()]
