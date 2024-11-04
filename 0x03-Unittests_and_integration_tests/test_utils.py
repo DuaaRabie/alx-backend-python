@@ -28,5 +28,6 @@ class TestAccessNestedMap(unittest.TestCase):
         with pytest.raises(KeyError, match=expected_message):
             access_nested_map(nested_map, path)
 
+
 if __name__ == '__main__':
     unittest.main()
