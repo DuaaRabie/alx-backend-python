@@ -29,6 +29,7 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(result, {"login": org_name})
 
     def test_public_repos_url(self):
+        """ test_public_repos_url """
         org_name = "google"
         expected_repos_url = "https://api.github.com/orgs/google/repos"
         
@@ -47,6 +48,7 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(repos_url, expected_repos_url)
 
     def test_public_repos(self, mock_get_json):
+        """ test_public_repos """
         org_name = "google"
         expected_repos = ["repo1", "repo2", "repo3"]
         
