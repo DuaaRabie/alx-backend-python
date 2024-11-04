@@ -28,6 +28,24 @@ class TestGithubOrgClient(unittest.TestCase):
         """Check that the returned value matches the expected result """
         self.assertEqual(result, {"login": org_name})
 
+    def test_public_repos_url(self):
+        org_name = "google"
+        expected_repos_url = "https://api.github.com/orgs/google/repos"
+        
+        # Mock payload for the org method
+        mock_org_payload = {
+            "repos_url": expected_repos_url
+        }
+
+        # Use patch as a context manager to mock the org property
+        with patch.object(GithubOrgClient, 'org', return_value=mock_org_payload):
+            client = GithubOrgClient(org_name)
+            # Access the _public_repos_url property
+            repos_url = client._public_repos_url
+            
+            # Test that the result is as expected
+            self.assertEqual(repos_url, expected_repos_url)
+
 
 if __name__ == '__main__':
     unittest.main()
