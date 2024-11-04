@@ -81,5 +81,39 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
+@parameterized_class([
+    {"org_payload": org_payload,
+     "repos_payload": repos_payload,
+     "expected_repos": expected_repos,
+     "apache2_repos": apache2_repos}
+])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Integration test for GithubOrgClient.public_repos method."""
+
+    @classmethod
+    def setUpClass(cls):
+        """Set up patcher for requests.get to mock external API calls."""
+        cls.get_patcher = patch('requests.get')
+        cls.mock_get = cls.get_patcher.start()
+
+        # Set up the side_effect for the mock to return the correct payloads
+        cls.mock_get.side_effect = lambda url: {
+            "https://api.github.com/orgs/google": cls.org_payload,
+            "https://api.github.com/orgs/google/repos": cls.repos_payload,
+            "https://api.github.com/orgs/apache/repos": cls.apache2_repos
+        }.get(url)
+
+    @classmethod
+    def tearDownClass(cls):
+        """Stop the patcher."""
+        cls.get_patcher.stop()
+
+    def test_public_repos(self):
+        """Test the public_repos method."""
+        client = GithubOrgClient("google")
+        repos = client.public_repos()
+        self.assertEqual(repos, self.expected_repos)
+
+
 if __name__ == '__main__':
     unittest.main()
