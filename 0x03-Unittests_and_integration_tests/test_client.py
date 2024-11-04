@@ -80,6 +80,12 @@ class TestGithubOrgClient(unittest.TestCase):
         result = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(result, expected)
 
+    def test_public_repos_with_license(self):
+        """Test the public_repos method with license filter."""
+        client = GithubOrgClient("apache")
+        repos = client.public_repos(license="apache-2.0")
+        self.assertEqual(repos, self.apache2_repos)
+
 
 @parameterized_class([
     {"org_payload": org_payload,
