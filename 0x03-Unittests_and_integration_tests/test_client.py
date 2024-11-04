@@ -60,7 +60,9 @@ class TestGithubOrgClient(unittest.TestCase):
         ]
 
         # Use patch as a context manager to mock _public_repos_url
-        with patch.object(GithubOrgClient, '_public_repos_url', return_value="https://api.github.com/orgs/google/repos"):
+        re = "https://api.github.com/orgs/google/repos"
+        repo = '_public_repos_url'
+        with patch.object(GithubOrgClient, repo, return_value=re):
             client = GithubOrgClient(org_name)
             repos = client.public_repos()  # Call the public_repos method
 
