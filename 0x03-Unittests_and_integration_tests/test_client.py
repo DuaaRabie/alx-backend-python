@@ -32,18 +32,16 @@ class TestGithubOrgClient(unittest.TestCase):
         """ test_public_repos_url """
         org_name = "google"
         expected_repos_url = "https://api.github.com/orgs/google/repos"
-        
         # Mock payload for the org method
-        mock_org_payload = {
+        payload = {
             "repos_url": expected_repos_url
         }
 
         # Use patch as a context manager to mock the org property
-        with patch.object(GithubOrgClient, 'org', return_value=mock_org_payload):
+        with patch.object(GithubOrgClient, 'org', return_value=payload):
             client = GithubOrgClient(org_name)
             # Access the _public_repos_url property
             repos_url = client._public_repos_url
-            
             # Test that the result is as expected
             self.assertEqual(repos_url, expected_repos_url)
 
@@ -51,7 +49,7 @@ class TestGithubOrgClient(unittest.TestCase):
         """ test_public_repos """
         org_name = "google"
         expected_repos = ["repo1", "repo2", "repo3"]
-        
+
         # Mock payload for the get_json return value
         mock_get_json.return_value = [
             {"name": "repo1"},
@@ -70,7 +68,8 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(repos, expected_repos)
 
             # Ensure that the mocked get_json was called once
-            mock_get_json.assert_called_once_with("https://api.github.com/orgs/google/repos")
+            test_api = "https://api.github.com/orgs/google/repos"
+            mock_get_json.assert_called_once_with(test_api)
 
 
 if __name__ == '__main__':
