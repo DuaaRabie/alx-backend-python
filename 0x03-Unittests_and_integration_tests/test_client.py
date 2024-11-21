@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
-""" test client """
-
-
+""" test client module"""
 import unittest
 from unittest.mock import patch
-from parameterized import parameterize
+from parameterized import parameterize, parameterized
 from client import GithubOrgClient
 
 
@@ -29,7 +27,7 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(result, {"login": org_name})
 
     def test_public_repos_url(self):
-        """ test_public_repos_url """
+        """ method to test_public_repos_url """
         org_name = "google"
         expected_repos_url = "https://api.github.com/orgs/google/repos"
         # Mock payload for the org method
@@ -46,7 +44,7 @@ class TestGithubOrgClient(unittest.TestCase):
             self.assertEqual(repos_url, expected_repos_url)
 
     def test_public_repos(self, mock_get_json):
-        """ test_public_repos """
+        """ method to test_public_repos """
         org_name = "google"
         expected_repos = ["repo1", "repo2", "repo3"]
 
@@ -75,6 +73,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False),
     ])
+
     def test_has_license(self, repo, license_key, expected):
         """Test the has_license method """
         result = GithubOrgClient.has_license(repo, license_key)
@@ -111,7 +110,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Stop the patcher."""
+        """ method to Stop the patcher."""
         cls.get_patcher.stop()
 
     def test_public_repos(self):
